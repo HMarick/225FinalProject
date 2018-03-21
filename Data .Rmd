@@ -1,7 +1,15 @@
 ---
 title: "Data"
-author: "Chase Henley"
+author: "Joe Feldman, Chase Henley, Harrison Marick"
 date: "3/20/2018"
 output: pdf_document
 ---
+```{r}
+require(tidyverse)
+```
+
+```{r}
+data15_16<-read.csv("MERGED2015_16_PP.csv")
+```
+
 
