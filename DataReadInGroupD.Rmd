@@ -10,26 +10,26 @@ output:
     fig_height: 3
     fig_width: 5
 ---
-### STAT 225 - Data Read In - Group X
+### STAT 225 - Data Read In - Group D
 
 ```{r, include=FALSE}
 require(mosaic)
 require(readr)
 ```
 
-Our project is about...
-(brief 1-2 sentence reminder).
+Our project is about analyzing the differences in median post graduation compensation among colleges. 
 
 ### Data Sources
 
-Our data sources are...
+Our only data source is College Scorecard.
 
-(Be sure you have these figured out for appropriate citation later.)
 
 ### Workflow to Generate your Data Set
 
-Include the steps necessary here to generate your final data set. This may include importing some files and wrangling them together. If you need assistance to write your data set to a new file to export, let me know. 
 
-If your data set is already set (was available as a .csv or .txt), you can just state that. 
 
-Note that any files used to construct your data set must be provided in your Dropbox folder, as well as your final data set itself.
+```{r}
+data<-read.csv("Scorecard.csv")
+data2<-data[,c(-6, -18, -19, -(27:34), -(42:89))]
+```
+
