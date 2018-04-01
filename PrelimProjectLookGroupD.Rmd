@@ -18,22 +18,24 @@ require(NSM3)
 require(readr)
 ```
 
-Names:  (Group X)
+Names:  Harrison Marick, Chase Henley, Joe Feldman (Group D)
 
-(Tentative) Project Title:
+What is the True Value of a College Education? 
 
-Our project is about...
+Perhaps the most prevalent rationale for the pursuance of a college degree is the promise of economic mobility upon graduation.  However, our project aims to investigate whether this opportunity is equally available for all students.  Specifically, our group will analyze whether the racial and socio-demographic composition of a college affects the proportion of students who go on to earn higher wages after enrolling in the institution. 
 
 ### Read in the data
 
 ```{r}
-# Must start with a data-read in command from Prof. Wagaman
+data<-read.csv("Scorecard.csv")
+data2<-data[,c(-6, -18, -19, -(27:34), -(42:89))] 
+data2<-data2[,c(-1,-2,-3,-5)]#simplifying and only selecting certain columns# Must start with a data-read in command from Prof. Wagaman
 ```
 
 ### Summary command on data set
 
 ```{r}
-#summary()
+summary(data2)
 ```
 
 
@@ -41,9 +43,9 @@ Our project is about...
 
 List your variables and whether they are quantitative/qualitative (numeric vs categorical), along with other notes about the variables. Hint, to make a nice list, you need to put two spaces at the end of each line to force RMarkdown to start a new line. Check this out below:
 
-Our variables are:  
-Variable 1 -  
-Variable 2 -  
+
+Variable 1 -  INSTM: Institution Name, qualitative
+Variable 2 -
 
 ### Analysis Plan
 
