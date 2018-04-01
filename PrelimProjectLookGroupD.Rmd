@@ -1,0 +1,83 @@
+---
+output:
+  pdf_document:
+    fig_height: 3
+    fig_width: 5
+  html_document:
+    fig_height: 3
+    fig_width: 5
+  word_document:
+    fig_height: 3
+    fig_width: 5
+---
+### STAT 225 - Prelim Project Look Group X
+
+```{r, include=FALSE}
+require(mosaic)
+require(NSM3)
+require(readr)
+```
+
+Names:  (Group X)
+
+(Tentative) Project Title:
+
+Our project is about...
+
+### Read in the data
+
+```{r}
+# Must start with a data-read in command from Prof. Wagaman
+```
+
+### Summary command on data set
+
+```{r}
+#summary()
+```
+
+
+### Data Codebook
+
+List your variables and whether they are quantitative/qualitative (numeric vs categorical), along with other notes about the variables. Hint, to make a nice list, you need to put two spaces at the end of each line to force RMarkdown to start a new line. Check this out below:
+
+Our variables are:  
+Variable 1 -  
+Variable 2 -  
+
+### Analysis Plan
+
+A rough outline for your proposed analysis, including univariate summaries, bivariate relationships, and the like
+
+#### Prelim Univariate Analysis
+
+Obtain basic univariate descriptive statistics and graphs for variables relevant to your analysis.
+
+```{r}
+#for quantitative variables, you could use
+#histogram, bwplot, densityplot
+#favstats
+```
+
+```{r}
+# for qualitative variables, you could use
+#tally
+#bargraph
+```
+
+COMMENT on what you see!
+
+#### Prelim Bivariate Analysis
+
+Make at least one scatterplot or side-by-side boxplot to examine a bivariate relationship where the response is quantitative (needed for chapter 6, or 8-9 analysis). 
+
+```{r}
+#bwplot or xyplot
+```
+
+COMMENT on what you see!
+
+#### Any other Analysis Thoughts
+
+
+### Questions for me
