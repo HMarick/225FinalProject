@@ -44,8 +44,57 @@ summary(data2)
 List your variables and whether they are quantitative/qualitative (numeric vs categorical), along with other notes about the variables. Hint, to make a nice list, you need to put two spaces at the end of each line to force RMarkdown to start a new line. Check this out below:
 
 
-Variable 1 -  INSTM: Institution Name, qualitative
-Variable 2 -
+Variable 1 -  INSTM: Institution Name; qualitative  
+
+Variable 2 -  PCT_WHITE: Percent of the population from students' zip codes that is White, via Census data; quantitative
+
+Variable 3 -  
+
+Variable 4 -
+
+Variable 5 -
+
+Variable 6 -
+
+Variable 7 -
+
+Variable 8 -
+
+Variable 9 -
+
+Variable 10 -
+
+Variable 11-
+
+Variable 12-
+
+Variable 13-
+
+Variable 14-
+
+Variable 15-
+
+Variable 16-
+
+Variable 17-
+
+Variable 18-
+
+Variable 19-  SD_EARN_WNE_P10: Standard deviation of earnings of students working and not enrolled 10 years after entry; quantitative
+
+Variable 20-  GT_25K_P10: Share of students earning over $25,000/year (threshold earnings) 10 years after entry; quantitative
+
+Variable 21-  MN_EARN_WNE_INC1_P10: Mean earnings of students working and not enrolled 10 years after entry in the lowest income tercile $0-30,000; quantitative 
+
+Variable 22-  MN_EARN_WNE_INC2_P10: Mean earnings of students working and not enrolled 10 years after entry in the middle income tercile 30,001-75,000 dollars; quantitative
+
+Variable 23-  MN_EARN_WNE_INC3_P10: Mean earnings of students working and not enrolled 10 years after entry in the highest income tercile $75,001+ ; quantitative
+
+Variable 24-  MN_EARN_WNE_INDEP0_INC1_P10: Mean earnings of dependent students working and not enrolled 10 years after entry in the lowest income tercile 0-30,000 dollars; quantitative
+
+Variable 25-  MN_EARN_WNE_INDEP0_P10: Mean earnings of dependent students working and not enrolled 10 years after entry; quantitative
+
+Variable 26-  MN_EARN_WNE_INDEP1_P10: Mean earnings of independent students working and not enrolled 10 years after entry; quantitative
 
 ### Analysis Plan
 
@@ -60,6 +109,13 @@ Obtain basic univariate descriptive statistics and graphs for variables relevant
 #histogram, bwplot, densityplot
 #favstats
 ```
+
+
+```{r}
+favstats(data2$MD_EARN_WNE_P10)
+ggplot(data2,aes(as.numeric(MD_EARN_WNE_P10)))+geom_histogram()+ggtitle("Distribution of median earnings of students working and not enrolled 10 years after entry")+xlab("median earnings (hundreds of dollars, e.g. 200=20000)")
+```
+The distribution of median earnings of students working and not enrolled 10 years after entry has a median of 27800 dollars and a mean of 33055.8 dollars, and so we see the distribution is skewed right. There is a particularly high concentration (over 1750 observations) with median earnings above 60000 dollars, while the next highest concentration consists of less about 500 observations—this is interesting and worth exploring further in the future. The range of the distribution is 1000 to 61600 dollars, and the standard deviation is 19470.25 dollars which indicates a relatively large spread.
 
 ```{r}
 # for qualitative variables, you could use
@@ -90,4 +146,4 @@ Joe: codebook for variables 1-9. One univariate analysis (proportion earning ove
 
 Harrison: codebook for variables 10-18. One univariate analysis (distribution of whiteness). One bivariate (student earnings 10 years post by whiteness)
 
-Chase: codebook for variables 19-26. One univariate analysis (median earnings 10 years post).
+Chase: codebook for variables 19-26. One univariate analysis (median earnings 10 years post, MD_EARN_WNE_P10).
