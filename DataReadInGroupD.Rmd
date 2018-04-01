@@ -1,0 +1,35 @@
+---
+output:
+  pdf_document:
+    fig_height: 3
+    fig_width: 5
+  html_document:
+    fig_height: 3
+    fig_width: 5
+  word_document:
+    fig_height: 3
+    fig_width: 5
+---
+### STAT 225 - Data Read In - Group X
+
+```{r, include=FALSE}
+require(mosaic)
+require(readr)
+```
+
+Our project is about...
+(brief 1-2 sentence reminder).
+
+### Data Sources
+
+Our data sources are...
+
+(Be sure you have these figured out for appropriate citation later.)
+
+### Workflow to Generate your Data Set
+
+Include the steps necessary here to generate your final data set. This may include importing some files and wrangling them together. If you need assistance to write your data set to a new file to export, let me know. 
+
+If your data set is already set (was available as a .csv or .txt), you can just state that. 
+
+Note that any files used to construct your data set must be provided in your Dropbox folder, as well as your final data set itself.
