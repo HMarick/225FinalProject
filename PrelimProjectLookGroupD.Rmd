@@ -69,6 +69,7 @@ Obtain basic univariate descriptive statistics and graphs for variables relevant
 
 COMMENT on what you see!
 
+
 #### Prelim Bivariate Analysis
 
 Make at least one scatterplot or side-by-side boxplot to examine a bivariate relationship where the response is quantitative (needed for chapter 6, or 8-9 analysis). 
@@ -83,3 +84,10 @@ COMMENT on what you see!
 
 
 ### Questions for me
+
+
+Joe: codebook for variables 1-9. One univariate analysis (proportion earning over 25k). One bivariate (% white as explanation of something)
+
+Harrison: codebook for variables 10-18. One univariate analysis (distribution of whiteness). One bivariate (student earnings 10 years post by whiteness)
+
+Chase: codebook for variables 19-26. One univariate analysis (median earnings 10 years post).
