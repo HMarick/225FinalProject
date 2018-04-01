@@ -17,7 +17,7 @@ require(mosaic)
 require(readr)
 ```
 
-Our project is about analyzing the differences in 10 years post graduation compensation among colleges. 
+Our project is about analyzing the differences in 10 years post graduation compensation among colleges.
 
 ### Data Sources
 
@@ -33,6 +33,7 @@ We downloaded the data from the following link: https://collegescorecard.ed.gov/
 
 ```{r}
 data<-read.csv("Scorecard.csv")
-data2<-data[,c(-6, -18, -19, -(27:34), -(42:89))] #simplifying and only selecting certain columns
+data2<-data[,c(-6, -18, -19, -(27:34), -(42:89))] 
+#simplifying and only selecting certain columns
 ```
 
