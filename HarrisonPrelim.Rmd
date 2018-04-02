@@ -1,0 +1,117 @@
+---
+output:
+  pdf_document:
+    fig_height: 3
+    fig_width: 5
+  html_document:
+    fig_height: 3
+    fig_width: 5
+  word_document:
+    fig_height: 3
+    fig_width: 5
+---
+### STAT 225 - Prelim Project Look Group X
+
+```{r, include=FALSE}
+require(mosaic)
+require(NSM3)
+require(readr)
+require(dplyr)
+require(Rfit)
+```
+
+Names:  Harrison Marick, Chase Henley, Joe Feldman (Group D)
+
+What is the True Value of a College Education? 
+
+Perhaps the most prevalent rationale for the pursuance of a college degree is the promise of economic mobility upon graduation.  However, our project aims to investigate whether this opportunity is equally available for all students.  Specifically, our group will analyze whether the racial and socio-demographic composition of a college affects the proportion of students who go on to earn higher wages after enrolling in the institution. 
+
+### Read in the data
+
+```{r, warning=FALSE}
+data<-read.csv("Scorecard.csv")
+data2<-data[,c(-6, -18, -19, -(27:34), -(42:89))] 
+data2<-data2[,c(-2,-3,-5)] %>%
+  as.data.frame() #simplifying and only selecting certain columns# Must start with a data-read in command from Prof. Wagaman
+data2[,3:27]<-sapply(data2[,3:27], as.character)
+data2[,3:27]<-sapply(data2[,3:27], as.numeric)
+data3 <-data2 %>%
+  group_by(INSTNM) %>%
+  mutate(rank=min(UNITID), n=n()) %>%
+  filter(n<2) %>%
+  as.data.frame()
+data4<-data3[,c(-1, -28, -29)]
+```
+
+### Summary command on data set
+
+```{r}
+summary(data4)
+```
+
+
+### Data Codebook
+
+List your variables and whether they are quantitative/qualitative (numeric vs categorical), along with other notes about the variables. Hint, to make a nice list, you need to put two spaces at the end of each line to force RMarkdown to start a new line. Check this out below:
+
+
+
+PCT_WHITE: Percent of the population from students' zip codes that is White, via Census data; quantitative
+
+
+MEDIAN_HH_INC: Median Household Income of Students' Parents; quantitative. 
+
+
+GT_25K_P10: 
+
+
+
+
+### Analysis Plan
+
+A rough outline for your proposed analysis, including univariate summaries, bivariate relationships, and the like
+
+#### Prelim Univariate Analysis
+
+
+```{r}
+favstats(data2$MD_EARN_WNE_P10)
+ggplot(data2,aes(as.numeric(MD_EARN_WNE_P10)))+geom_histogram()+ggtitle("Distribution of median earnings of students working and not enrolled 10 years after entry")+xlab("median earnings (hundreds of dollars, e.g. 200=20000)")
+```
+The distribution of median earnings of students working and not enrolled 10 years after entry has a median of 27800 dollars and a mean of 33055.8 dollars, and so we see the distribution is skewed right. There is a particularly high concentration (over 1750 observations) with median earnings above 60000 dollars, while the next highest concentration consists of less about 500 observations—this is interesting and worth exploring further in the future. The range of the distribution is 1000 to 61600 dollars, and the standard deviation is 19470.25 dollars which indicates a relatively large spread.
+
+
+Median Household Income
+
+As expected, the distribution of this variable is bell-shaped. Specifically, it is unimodal, relatively symmetric around a median of 57,739.61. Having said that, the values for this variable range from 15,429.01 to 100,870.80. 
+
+
+```{r}
+histogram(~data4$MEDIAN_HH_INC)
+```
+
+
+
+#### Prelim Bivariate Analysis
+
+
+```{r}
+with(data4, plot(PCT_WHITE, MD_EARN_WNE_P10))
+ggplot(data4, aes(PCT_WHITE, MD_EARN_WNE_P10)) + geom_point() + xlab("White %") +
+  ylab("Median Earnings 10 Years Post College") + ggtitle("White% and Income")
+```
+
+There appears to be a weak positive linear correlation between percentage of student body that is white and median earnings 10 years after college.
+
+```{r}
+summary(rfit(MD_EARN_WNE_P10~PCT_WHITE, data=data4),overall.test="drop")
+```
+Above, we have fit a simple linear model using percent white to predict median earnings. Most notably, the p-value for model utility is very close to 0, indicating that there is indict a significant linear relationship between these two variables. This relationship is one we will continue to investigate as our project progresses.
+
+
+
+
+#### Any other Analysis Thoughts
+
+
+### Questions for me
