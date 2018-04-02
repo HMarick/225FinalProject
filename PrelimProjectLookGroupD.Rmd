@@ -36,10 +36,10 @@ data2[,3:27]<-sapply(data2[,3:27], as.character)
 data2[,3:27]<-sapply(data2[,3:27], as.numeric)
 data3 <-data2 %>%
   group_by(INSTNM) %>%
-  mutate(rank=min(UNITID)) %>%
-  filter(UNITID==rank) %>%
+  mutate(rank=min(UNITID), n=n()) %>%
+  filter(n<2) %>%
   as.data.frame()
-data4<-data3[,c(-1, -28)]
+data4<-data3[,c(-1, -28, -29)]
 ```
 
 ### Summary command on data set
