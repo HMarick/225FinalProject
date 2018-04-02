@@ -1,0 +1,32 @@
+---
+title: "JoePrelim"
+author: "Joe Feldman"
+date: "4/2/2018"
+output: pdf_document
+---
+
+Variable 1 -  PCT_WHITE: Percent of the student population that is White, via Census data; quantitative.
+
+```{r setup, include=FALSE}
+#Univariate Analysis
+favstats(data4$PCT_WHITE)
+histogram(data4$PCT_WHITE)
+densityplot(data4$PCT_WHITE)
+```
+
+Conducting Univariate Analysis on the distribution of the percentage of students that are white, it is clear that this distribution is quite skewed left. The mean percentage is 75.5087 while the median is 78.685. The data ranges from from 5.34 to 98.98 with a standard deviation of 15.8787.
+
+Intuitively, this distribution makes sense.  White people have a traditionally stronger representation in the American college system, and this distribution supports that claim as there is more density around colleges with a proportionately high white student body.
+
+
+```{r}
+#Bivariate Analysis: Percentage of the student body earning over 25k within 10 years of graduating as explained by the proportion of the student body that is white
+mod<-lm(GT_25K_P10~PCT_WHITE, data = data4)
+summary(mod)
+with(data4,plot(PCT_WHITE,GT_25K_P10))
+abline(mod)
+
+```
+
+There seems to be a weak to moderate positive relationship between PCT-WHITE and the proportion of students earning over 25K within 10 years of graduating. 
+
