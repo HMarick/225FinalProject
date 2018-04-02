@@ -81,19 +81,17 @@ Obtain basic univariate descriptive statistics and graphs for variables relevant
 
 
 ```{r}
-favstats(data4$MD_EARN_WNE_P10)
-ggplot(data4,aes(as.numeric(MD_EARN_WNE_P10)))+geom_histogram()+ggtitle("Distribution of median earnings of students working and not enrolled 10 years after entry")+xlab("median earnings (hundreds of dollars, e.g. 200=20000)")
+favstats(data2$MD_EARN_WNE_P10)
+ggplot(data2,aes(as.numeric(MD_EARN_WNE_P10)))+geom_histogram()+ggtitle("Distribution of median earnings of students working and not enrolled 10 years after entry")+xlab("median earnings (hundreds of dollars, e.g. 200=20000)")
 ```
-The distribution of median earnings of students working and not enrolled 10 years after entry has a median of 31200 dollars and a mean of 33576.57 dollars, and so we see the distribution is pretty heavily skewed right. The range of the distribution is 240900 dollars, and the standard deviation is 15500.6 dollars which indicates a fairly large spread.
+The distribution of median earnings of students working and not enrolled 10 years after entry has a median of 27800 dollars and a mean of 33055.8 dollars, and so we see the distribution is skewed right. There is a particularly high concentration (over 1750 observations) with median earnings above 60000 dollars, while the next highest concentration consists of less about 500 observations—this is interesting and worth exploring further in the future. The range of the distribution is 1000 to 61600 dollars, and the standard deviation is 19470.25 dollars which indicates a relatively large spread.
 
 ```{r}
-# for qualitative variables, you could use
-#tally
-#bargraph
+favstats(data4$GT_25K_P10)
+ggplot(data4,aes((GT_25K_P10)))+geom_histogram()+ggtitle("Distribution of share of students earning over $25,000/year (threshold earnings) 10 years after entry")+xlab("Share of students earning over $25,000/year (threshold earnings) 10 years after entry")
 ```
 
-COMMENT on what you see!
-
+The distribution share of students earning over $25,000/year (threshold earnings) 10 years after entry has a median of 0.616 and a mean of 0.6022945, and we see the distribution is a skewed-left bell-shape. The standard deviation is 0.174976 which indicates a fairly large spread.
 
 #### Prelim Bivariate Analysis
 
