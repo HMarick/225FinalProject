@@ -1,15 +1,116 @@
 ---
-title: "ChasePrelim"
-author: "Chase Henley"
-date: "4/2/2018"
-output: pdf_document
+output:
+  pdf_document:
+    fig_height: 3
+    fig_width: 5
+  html_document:
+    fig_height: 3
+    fig_width: 5
+  word_document:
+    fig_height: 3
+    fig_width: 5
 ---
+### STAT 225 - Prelim Project Look Group X
 
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r, include=FALSE}
+require(mosaic)
+require(NSM3)
+require(readr)
+require(dplyr)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Names:  Harrison Marick, Chase Henley, Joe Feldman (Group D)
+
+What is the True Value of a College Education? 
+
+Perhaps the most prevalent rationale for the pursuance of a college degree is the promise of economic mobility upon graduation.  However, our project aims to investigate whether this opportunity is equally available for all students.  Specifically, our group will analyze whether the racial and socio-demographic composition of a college affects the proportion of students who go on to earn higher wages after enrolling in the institution. 
+
+### Read in the data
+
+```{r, warning=FALSE}
+data<-read.csv("Scorecard.csv")
+data2<-data[,c(-6, -18, -19, -(27:34), -(42:89))] 
+data2<-data2[,c(-2,-3,-5)] %>%
+  as.data.frame() #simplifying and only selecting certain columns# Must start with a data-read in command from Prof. Wagaman
+data2[,3:27]<-sapply(data2[,3:27], as.character)
+data2[,3:27]<-sapply(data2[,3:27], as.numeric)
+data3 <-data2 %>%
+  group_by(INSTNM) %>%
+  mutate(rank=min(UNITID), n=n()) %>%
+  filter(n<2) %>%
+  as.data.frame()
+data4<-data3[,c(-1, -28, -29)]
+```
+
+### Summary command on data set
+
+```{r}
+summary(data4)
+```
+
+
+### Data Codebook
+
+List your variables and whether they are quantitative/qualitative (numeric vs categorical), along with other notes about the variables. Hint, to make a nice list, you need to put two spaces at the end of each line to force RMarkdown to start a new line. Check this out below:
+
+
+
+PCT_WHITE: Percent of the population from students' zip codes that is White, via Census data; quantitative
+
+
+MEDIAN_HH_INC: 
+
+GT_25K_P10: 
+
+
+
+
+### Analysis Plan
+
+A rough outline for your proposed analysis, including univariate summaries, bivariate relationships, and the like
+
+#### Prelim Univariate Analysis
+
+Obtain basic univariate descriptive statistics and graphs for variables relevant to your analysis.
+
+```{r}
+#for quantitative variables, you could use
+#histogram, bwplot, densityplot
+#favstats
+```
+
+
+```{r}
+favstats(data2$MD_EARN_WNE_P10)
+ggplot(data2,aes(as.numeric(MD_EARN_WNE_P10)))+geom_histogram()+ggtitle("Distribution of median earnings of students working and not enrolled 10 years after entry")+xlab("median earnings (hundreds of dollars, e.g. 200=20000)")
+```
+The distribution of median earnings of students working and not enrolled 10 years after entry has a median of 27800 dollars and a mean of 33055.8 dollars, and so we see the distribution is skewed right. There is a particularly high concentration (over 1750 observations) with median earnings above 60000 dollars, while the next highest concentration consists of less about 500 observations—this is interesting and worth exploring further in the future. The range of the distribution is 1000 to 61600 dollars, and the standard deviation is 19470.25 dollars which indicates a relatively large spread.
+
+```{r}
+favstats(data4$GT_25K_P10)
+ggplot(data4,aes((GT_25K_P10)))+geom_histogram()+ggtitle("Distribution of share of students earning over $25,000/year (threshold earnings) 10 years after entry")+xlab("Share of students earning over $25,000/year (threshold earnings) 10 years after entry")
+```
+
+The distribution share of students earning over $25,000/year (threshold earnings) 10 years after entry has a median of 0.616 and a mean of 0.6022945, and we see the distribution is a skewed-left bell-shape. The standard deviation is 0.174976 which indicates a fairly large spread.
+
+#### Prelim Bivariate Analysis
+
+Make at least one scatterplot or side-by-side boxplot to examine a bivariate relationship where the response is quantitative (needed for chapter 6, or 8-9 analysis). 
+
+```{r}
+#bwplot or xyplot
+```
+
+COMMENT on what you see!
+
+#### Any other Analysis Thoughts
+
+
+### Questions for me
+
+
+Joe: codebook for variables 1-9. One univariate analysis (proportion earning over 25k). One bivariate (% white as explanation of something)
+
+Harrison: codebook for variables 10-18. One univariate analysis (distribution of whiteness). One bivariate (student earnings 10 years post by whiteness)
+
+Chase: codebook for variables 19-26. One univariate analysis (median earnings 10 years post, MD_EARN_WNE_P10).
