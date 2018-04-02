@@ -10,13 +10,14 @@ output:
     fig_height: 3
     fig_width: 5
 ---
-### STAT 225 - Prelim Project Look Group X
+### STAT 225 - Prelim Project Look Group D
 
 ```{r, include=FALSE}
 require(mosaic)
 require(NSM3)
 require(readr)
 require(dplyr)
+require(Rfit)
 ```
 
 Names:  Harrison Marick, Chase Henley, Joe Feldman (Group D)
@@ -31,7 +32,7 @@ Perhaps the most prevalent rationale for the pursuance of a college degree is th
 data<-read.csv("Scorecard.csv")
 data2<-data[,c(-6, -18, -19, -(27:34), -(42:89))] 
 data2<-data2[,c(-2,-3,-5)] %>%
-  as.data.frame() #simplifying and only selecting certain columns# Must start with a data-read in command from Prof. Wagaman
+  as.data.frame() # Must start with a data-read in command from Prof. Wagaman
 data2[,3:27]<-sapply(data2[,3:27], as.character)
 data2[,3:27]<-sapply(data2[,3:27], as.numeric)
 data3 <-data2 %>%
@@ -51,68 +52,97 @@ summary(data4)
 
 ### Data Codebook
 
-List your variables and whether they are quantitative/qualitative (numeric vs categorical), along with other notes about the variables. Hint, to make a nice list, you need to put two spaces at the end of each line to force RMarkdown to start a new line. Check this out below:
+`PCT_WHITE`: Percent of the population from students' zip codes that is White, via Census data; quantitative
 
 
-
-PCT_WHITE: Percent of the population from students' zip codes that is White, via Census data; quantitative
-
-
-MEDIAN_HH_INC: 
-
-GT_25K_P10: 
+`MEDIAN_HH_INC`: Median Household Income of Students' Parents; quantitative. 
 
 
+`GT_25K_P10`: Percentage of students earning at least 25k 10 years after entry; quantitative
+
+`MD_EARN_WNE_P10`: Median income 10 years after entry of students working and not enrolled in school; quantitative.
 
 
 ### Analysis Plan
 
-A rough outline for your proposed analysis, including univariate summaries, bivariate relationships, and the like
+We plan to focus our project on explanation the relationships between `MD_EARN_WNE_P10` and various predictor variables. Below, we have highlighted a few potential predictors, their distributions, and their relationships with our primary response variable. 
+
 
 #### Prelim Univariate Analysis
 
-Obtain basic univariate descriptive statistics and graphs for variables relevant to your analysis.
+#####Percentage White
 
-```{r}
-#for quantitative variables, you could use
-#histogram, bwplot, densityplot
-#favstats
+```{r setup, warning=FALSE, message=FALSE}
+#Univariate Analysis
+#favstats(data4$PCT_WHITE)
+#histogram(data4$PCT_WHITE)
+ggplot(data4, aes(PCT_WHITE))+geom_histogram()
+#densityplot(data4$PCT_WHITE)
 ```
 
+Conducting Univariate Analysis on the distribution of the percentage of students that are white, it is clear that this distribution is quite skewed left. The mean percentage is 75.509 while the median is 78.685. The data ranges from from 5.34 to 98.98 with a standard deviation of 15.879.
 
-```{r}
-favstats(data4$MD_EARN_WNE_P10)
-ggplot(data4,aes(as.numeric(MD_EARN_WNE_P10)))+geom_histogram()+ggtitle("Distribution of median earnings of students working and not enrolled 10 years after entry")+xlab("median earnings (hundreds of dollars, e.g. 200=20000)")
+Intuitively, this distribution makes sense.  White people have a traditionally stronger representation in the American college system, and this distribution supports that claim as there is more density around colleges with a proportionately high white student body.
+
+#####Median Earnings 10 Years Post College
+
+```{r, warning=FALSE, message=FALSE}
+favstats(data2$MD_EARN_WNE_P10)
+ggplot(data2,aes(as.numeric(MD_EARN_WNE_P10)))+geom_histogram()+
+  ggtitle("Dist Med Earnings 10 Years Post Entry")+
+  xlab("Median Earnings (hundreds of dollars)")
 ```
-The distribution of median earnings of students working and not enrolled 10 years after entry has a median of 31200 dollars and a mean of 33576.57 dollars, and so we see the distribution is pretty heavily skewed right. The range of the distribution is 240900 dollars, and the standard deviation is 15500.6 dollars which indicates a fairly large spread.
 
-```{r}
-# for qualitative variables, you could use
-#tally
-#bargraph
+The distribution of median earnings of students working and not enrolled 10 years after entry has a median of 27,800 dollars and a mean of 33,055.8 dollars, and so we see the distribution is skewed right. There is a particularly high concentration (over 1750 observations) with median earnings above 60,000 dollars, while the next highest concentration consists of less about 500 observations—this is interesting and worth exploring further in the future. The range of the distribution is 1,000 to 61,600 dollars, and the standard deviation is 19,470.25 dollars which indicates a relatively large spread.
+
+#####% of Students Earning At Least 25K
+
+```{r, warning=FALSE, message=FALSE}
+favstats(data4$GT_25K_P10)
+ggplot(data4,aes((GT_25K_P10)))+
+  geom_histogram()+ggtitle("Dist of % Students Earning 25K+")+
+  xlab("% of Students Earning 25K+")
 ```
 
-COMMENT on what you see!
+The distribution share of students earning over $25,000/year (threshold earnings) 10 years after entry has a median of 0.616 and a mean of 0.602, and we see the distribution is skewed left. The standard deviation is 0.175 which indicates a fairly large spread.
+
+
+#####Median Household Income
+
+As expected, the distribution of this variable is primarily bell-shaped. While there are a couple of spikes, there is one primary peak and it is relatively symmetric around a median of 57,739.61. The values for this variable range from 15,429.01 to 100,870.80. 
+
+
+```{r, warning=FALSE, message=FALSE}
+ggplot(data4, aes(MEDIAN_HH_INC)) +geom_histogram()
+```
 
 
 #### Prelim Bivariate Analysis
 
-Make at least one scatterplot or side-by-side boxplot to examine a bivariate relationship where the response is quantitative (needed for chapter 6, or 8-9 analysis). 
+#####Percentage White and Median Earnings 10 Years Post College
 
-```{r}
-#bwplot or xyplot
+
+```{r, warning=FALSE}
+ggplot(data4, aes(PCT_WHITE, MD_EARN_WNE_P10)) + geom_point() + xlab("White %") +
+  ylab("Median Earnings 10 Years Post College") + ggtitle("White% and Income")
 ```
 
-COMMENT on what you see!
+There appears to be a weak positive linear correlation between percentage of student body that is white and median earnings 10 years after college.
 
-#### Any other Analysis Thoughts
+```{r}
+summary(rfit(MD_EARN_WNE_P10~PCT_WHITE, data=data4),overall.test="drop")
+```
+Above, we have fit a simple linear model using percent white to predict median earnings. Most notably, the p-value for model utility is very close to 0, indicating that there is a significant linear relationship between these two variables. This relationship is one we will continue to investigate as our project progresses.
 
 
-### Questions for me
+#####Percentage White and % Student Body Earning >25k
 
+```{r}
+mod<-lm(GT_25K_P10~PCT_WHITE, data = data4)
+summary(mod)
+with(data4,plot(PCT_WHITE,GT_25K_P10))
+abline(mod)
+```
 
-Joe: codebook for variables 1-9. One univariate analysis (proportion earning over 25k). One bivariate (% white as explanation of something)
+There seems to be a weak to moderate positive relationship between PCT-WHITE and the proportion of students earning over 25K within 10 years of graduating. 
 
-Harrison: codebook for variables 10-18. One univariate analysis (distribution of whiteness). One bivariate (student earnings 10 years post by whiteness)
-
-Chase: codebook for variables 19-26. One univariate analysis (median earnings 10 years post, MD_EARN_WNE_P10).
