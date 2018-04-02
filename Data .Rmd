@@ -9,7 +9,7 @@ require(tidyverse)
 ```
 
 ```{r}
-data<-read.csv("Scorecard.csv")
+data<-
 ```
 
 
