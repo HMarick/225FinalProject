@@ -32,8 +32,8 @@ data<-read.csv("Scorecard.csv")
 data2<-data[,c(-6, -18, -19, -(27:34), -(42:89))] 
 data2<-data2[,c(-2,-3,-5)] %>%
   as.data.frame()#simplifying and only selecting certain columns# Must start with a data-read in command from Prof. Wagaman
-data2[,3:27]<-sapply(data2[,2:26], as.character)
-data2[,3:27]<-sapply(data2[,2:26], as.numeric)
+data2[,3:27]<-sapply(data2[,3:27], as.character)
+data2[,3:27]<-sapply(data2[,3:27], as.numeric)
 data3 <-data2 %>%
   group_by(INSTNM) %>%
   mutate(rank=min(UNITID)) %>%
