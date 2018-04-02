@@ -93,7 +93,7 @@ ggplot(data2,aes(as.numeric(MD_EARN_WNE_P10)))+geom_histogram()+
   xlab("Median Earnings (hundreds of dollars)")
 ```
 
-The distribution of median earnings of students working and not enrolled 10 years after entry has a median of 27,800 dollars and a mean of 33,055.8 dollars, and so we see the distribution is skewed right. There is a particularly high concentration (over 1750 observations) with median earnings above 60,000 dollars, while the next highest concentration consists of less about 500 observations—this is interesting and worth exploring further in the future. The range of the distribution is 1,000 to 61,600 dollars, and the standard deviation is 19,470.25 dollars which indicates a relatively large spread.
+The distribution of median earnings of students working and not enrolled 10 years after entry has a median of 31100dollars and a mean of 33500.42 dollars, and so we see the distribution is skewed right. The range of the distribution is 9100 to 250000 dollars, and the standard deviation is 15444.58 dollars which indicates a relatively large spread.
 
 #####% of Students Earning At Least 25K
 
