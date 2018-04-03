@@ -29,7 +29,7 @@ Perhaps the most prevalent rationale for the pursuance of a college degree is th
 ### Read in the data
 
 ```{r, warning=FALSE}
-data<-read.csv("Scorecard.csv")
+data <- read.csv("https://awagaman.people.amherst.edu/stat225/datasetsS2018/groupDdata.csv")
 data2<-data[,c(-6, -18, -19, -(27:34), -(42:89))] 
 data2<-data2[,c(-2,-3,-5)] %>%
   as.data.frame() # Must start with a data-read in command from Prof. Wagaman
@@ -144,5 +144,5 @@ with(data4,plot(PCT_WHITE,GT_25K_P10))
 abline(mod)
 ```
 
-There seems to be a weak to moderate positive relationship between PCT-WHITE and the proportion of students earning over 25K within 10 years of graduating. 
+There seems to be a weak to moderate positive relationship between `PCT_WHITE` and the proportion of students earning over 25K within 10 years of graduating. 
 
