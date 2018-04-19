@@ -40,14 +40,17 @@ data4<-data3[,c(-1, -28, -29)]
 
 #Linear Model Construction
 
-In this section, we build a linear regression model with `WHITE_PCT` 
+In this section, we build a linear regression model with `WHITE_PCT` as the predictor variable and `MD_EARN_WNE_P10` as the dependent variable. Before building any models, we need to assess the legitimacy of this linear relationship. Based on the previous section where we conducted both parametric and non parametric tests for a difference in medians, we suspect some sort of a relationship. 
 
-Whether building a parametric or non parametric model, a linear regression model depends on a linear relationship between predictor variables and the response variable. Below, we have produced a scatterplot of 
+Below, we have produced a scatterplot of our two variables of note. 
 
 ```{r}
 d5<-filter(data4, !is.na(PCT_WHITE) & !is.na(MD_EARN_WNE_P10))
 ggplot(d5, aes(PCT_WHITE, MD_EARN_WNE_P10)) + geom_point() + xlab("Percentage White") + ylab("Median Earnings 10 Years After Entry") + ggtitle("Earnings for Students Working")
 ```
+It appears as if there is a weak linear correlation between the two variables. 
+
+
 
 ```{r}
 lin<-lm(MD_EARN_WNE_P10~PCT_WHITE, data=d5)
