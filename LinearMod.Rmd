@@ -1,0 +1,72 @@
+---
+title: "HarrisonsShtuff"
+author: "Harrison Marick"
+date: "4/19/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r, include=FALSE}
+require(mosaic)
+require(NSM3)
+require(readr)
+require(dplyr)
+require(Rfit)
+require(ggplot2)
+```
+
+
+```{r, warning=FALSE}
+data <- read.csv("https://awagaman.people.amherst.edu/stat225/datasetsS2018/groupDdata.csv")
+data2<-data[,c(-6, -18, -19, -(27:34), -(42:89))] 
+data2<-data2[,c(-2,-3,-5)] %>%
+  as.data.frame() # Must start with a data-read in command from Prof. Wagaman
+data2[,3:27]<-sapply(data2[,3:27], as.character)
+data2[,3:27]<-sapply(data2[,3:27], as.numeric)
+data3 <-data2 %>%
+  group_by(INSTNM) %>%
+  mutate(rank=min(UNITID), n=n()) %>%
+  filter(n<2) %>%
+  as.data.frame()
+data4<-data3[,c(-1, -28, -29)]
+```
+
+
+
+
+#Linear Model Construction
+
+In this section, we build a linear regression model with `WHITE_PCT` as the predictor variable and `MD_EARN_WNE_P10` as the dependent variable. Before building any models, we need to assess the legitimacy of this linear relationship. Based on the previous section where we conducted both parametric and non parametric tests for a difference in medians, we suspect some sort of a relationship. 
+
+Below, we have produced a scatterplot of our two variables of note. 
+
+```{r}
+d5<-filter(data4, !is.na(PCT_WHITE) & !is.na(MD_EARN_WNE_P10))
+ggplot(d5, aes(PCT_WHITE, MD_EARN_WNE_P10)) + geom_point() + xlab("Percentage White") + ylab("Median Earnings 10 Years After Entry") + ggtitle("Earnings for Students Working")
+```
+It appears as if there is a weak linear correlation between the two variables. 
+
+
+
+```{r}
+lin<-lm(MD_EARN_WNE_P10~PCT_WHITE, data=d5)
+summary(lin)
+plot(lin, which=1)
+plot(lin, which=2)
+histogram(lin$residuals, breaks="Scott") #giant right skew
+```
+
+
+
+
+```{r}
+nonP<-rfit(MD_EARN_WNE_P10~PCT_WHITE, data=d5)
+summary(nonP)
+```
+
+
+
