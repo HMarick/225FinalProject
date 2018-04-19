@@ -74,10 +74,12 @@ We plan to focus our project on explanation the relationships between `MD_EARN_W
 
 ```{r setup, warning=FALSE, message=FALSE}
 #Univariate Analysis
-#favstats(data4$PCT_WHITE)
+favstats(data4$PCT_WHITE)
 #histogram(data4$PCT_WHITE)
 ggplot(data4, aes(PCT_WHITE))+geom_histogram()
 #densityplot(data4$PCT_WHITE)
+
+data4<-mutate(data4, "Predominantly White" = ifelse(PCT_WHITE> 67.09,1, 0))
 ```
 
 Conducting Univariate Analysis on the distribution of the percentage of students that are white, it is clear that this distribution is quite skewed left. The mean percentage is 75.509 while the median is 78.685. The data ranges from from 5.34 to 98.98 with a standard deviation of 15.879.
