@@ -37,6 +37,7 @@ data4<-data3[,c(-1, -28, -29)]
 
 
 
+
 #Linear Model Construction
 
 In this section, we build a linear regression model with `WHITE_PCT` 
