@@ -18,6 +18,7 @@ require(NSM3)
 require(readr)
 require(dplyr)
 require(Rfit)
+require(stats)
 ```
 
 Names:  Harrison Marick, Chase Henley, Joe Feldman (Group D)
@@ -79,7 +80,25 @@ favstats(data4$PCT_WHITE)
 ggplot(data4, aes(PCT_WHITE))+geom_histogram()
 #densityplot(data4$PCT_WHITE)
 
-data4<-mutate(data4, "Predominantly White" = ifelse(PCT_WHITE> 67.09,1, 0))
+data4<-mutate(data4, "Predominantly_White" = as.factor(ifelse(PCT_WHITE> 67.09,1, 0)))
+bwplot(MD_EARN_WNE_P10~Predominantly_White, data = data4)
+
+dataW<-filter(data4,Predominantly_White == 1)
+dataNW<-filter(data4,Predominantly_White == 0)
+
+plot(density(dataW$MD_EARN_WNE_P10/1000, na.rm = TRUE))
+lines(density(dataNW$MD_EARN_WNE_P10/1000, col = 'r', na.rm = TRUE))
+#conditions for shift model might be violated. Not symmetric.
+
+favstats(~MD_EARN_WNE_P10, data = dataW)
+favstats(~MD_EARN_WNE_P10, data = dataNW)
+
+#Much more spread in the predominantly white schools. May pull up mean thus contributing to the significant t-test.  But the difference is confirmed by the nonparametric signed rank
+
+
+
+with(data4,wilcox.test(dataW$MD_EARN_WNE_P10,dataNW$MD_EARN_WNE_P10, conf.int = TRUE))
+with(data4,t.test(dataW$MD_EARN_WNE_P10,dataNW$MD_EARN_WNE_P10, conf.int = TRUE))
 ```
 
 Conducting Univariate Analysis on the distribution of the percentage of students that are white, it is clear that this distribution is quite skewed left. The mean percentage is 75.509 while the median is 78.685. The data ranges from from 5.34 to 98.98 with a standard deviation of 15.879.
