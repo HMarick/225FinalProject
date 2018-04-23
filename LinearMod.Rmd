@@ -46,7 +46,9 @@ Below, we have produced a scatterplot of our two variables of note.
 
 ```{r}
 d5<-filter(data4, !is.na(PCT_WHITE) & !is.na(MD_EARN_WNE_P10))
+jpeg('xyPlot.jpg')
 ggplot(d5, aes(PCT_WHITE, MD_EARN_WNE_P10)) + geom_point() + xlab("Percentage White") + ylab("Median Earnings 10 Years After Entry") + ggtitle("Earnings for Students Working")
+dev.off()
 ```
 It appears as if there is a weak linear correlation between the two variables. 
 
@@ -55,8 +57,12 @@ It appears as if there is a weak linear correlation between the two variables.
 ```{r}
 lin<-lm(MD_EARN_WNE_P10~PCT_WHITE, data=d5)
 summary(lin)
+jpeg('var.jpg')
 plot(lin, which=1)
+dev.off()
+jpeg('qq.jpg')
 plot(lin, which=2)
+dev.off()
 histogram(lin$residuals, breaks="Scott") #giant right skew
 ```
 
