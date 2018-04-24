@@ -71,7 +71,13 @@ histogram(lin$residuals, breaks="Scott") #giant right skew
 
 ```{r}
 nonP<-rfit(MD_EARN_WNE_P10~PCT_WHITE, data=d5)
-summary(nonP)
+summary(nonP, overall.test='drop')
+
+jpeg('mod.jpg')
+plot(d5$PCT_WHITE, d5$MD_EARN_WNE_P10, xlab="Percentage White", ylab="Median Earnings 10 Years After Entry", main="Model Comparison")
+lines((nonP$x)[,2], nonP$fitted, col=2)
+lines(d5$PCT_WHITE, lin$fitted, col=4)
+dev.off()
 ```
 
 
