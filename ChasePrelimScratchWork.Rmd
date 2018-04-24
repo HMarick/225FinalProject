@@ -146,3 +146,51 @@ abline(mod)
 
 There seems to be a weak to moderate positive relationship between PCT-WHITE and the proportion of students earning over 25K within 10 years of graduating. 
 
+
+Density of percentage white variable
+
+Histograms:
+```{r}
+histogram(~PCT_WHITE,data=data4,main="Default") 
+histogram(~PCT_WHITE,data=data4,breaks="Sturges",main="Sturges")
+histogram(~PCT_WHITE,data=data4,breaks="Scott",main="Scott") 
+histogram(~PCT_WHITE,data=data4,breaks="FD",main="FD") 
+
+favstats(~PCT_WHITE, data=data4)
+FDh<-2*(87.83-67.09)*(5176^(-1/3)); FDh
+Scotth<-3.5*15.86593*(5176^(-1/3));Scotth
+Sturgesm<-log2(5176) +1; Sturgesm
+maxmin<-98.92+5.34
+FDm<-maxmin/FDh;FDm
+Scottm<-maxmin/Scotth;Scottm
+```
+
+Sturges and Scott produce similar histograms and appear to be the best choice in portraying the shape of the distribution. The default contains less bins and isn't a bad choice either. However, Friedman's produces a histogram with many bins and results in a histogram that is too blocky since it doesn't have enough observations per bin.
+
+Kernel comparisons:
+```{r}
+densityplot(~PCT_WHITE,data=data4,kernel="e",main="Default Epan. Kernel Estimate for PCT_WHITE")
+densityplot(~PCT_WHITE,data=data4,kernel="r",main="Default Box Kernel Estimate for PCT_WHITE")
+densityplot(~PCT_WHITE,data=data4,kernel="g",main="Default Normal Kernel Estimate for PCT_WHITE")
+densityplot(~PCT_WHITE,data=data4,kernel="t",main="Default Triangular Kernel Estimate for PCT_WHITE")
+```
+
+The density plot created using the box, or uniform kernel, is the least smooth out of the bunch. Plots constructed with the epanechnikov, triangular, and normal kernels are all fairly smooth, but the plot using the normal kernel stands out as the most smooth so that is the one we will prefer.
+
+Fixed bandwidth comparisons:
+```{r}
+norm<-density(data4$PCT_WHITE, kernel="g",bw="nrd0",na.rm=TRUE) #saved normal kernel, default h
+norm2<-density(data4$PCT_WHITE, kernel="g",bw="nrd",na.rm=TRUE)
+norm3<-density(data4$PCT_WHITE, kernel="g",bw="ucv",na.rm=TRUE)
+norm4<-density(data4$PCT_WHITE, kernel="g",bw="bcv",na.rm=TRUE)
+norm5<-density(data4$PCT_WHITE,kernel="g",bw="SJ",na.rm=TRUE)
+
+plot(norm$x,norm$y,ylim=c(0,0.15),type="l") #adjust y for scaling
+lines(norm2$x,norm2$y,col=2) #red
+lines(norm3$x,norm3$y,col=3) #green
+lines(norm4$x,norm4$y,col=4) #blue
+lines(norm5$x,norm5$y,col=5) #light blue
+```
+We see that the green and light blue lines are the least smooth—these were produced using the ucv and SJ bandwidth selection methods, respectively. These are both data-driven cross-validation (cv) methods. 
+
+The black, red, and darker blue lines are all fairly similar in terms of smoothness, and these were produced with the nrd0, nrd, and ucv bandwidth selection methods. The nrd0 and nrd methods are both normal-based and work ideally with data sets that are normally distributed.` The ucv method is a cross-validation method as its name implies. Thus, considering our data is not normally distributed, we prefer the ucv method in this setting.
