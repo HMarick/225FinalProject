@@ -1,0 +1,26 @@
+---
+title: "Written Paper"
+author: "Chase Henley, Harrison Marick, Joe Feldman"
+date: "4/29/2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+###Abstract
+
+###Introduction
+
+###Data
+
+###Analysis
+
+###Results
+
+###Conclusion
+
+
+
+
