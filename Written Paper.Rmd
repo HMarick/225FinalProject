@@ -41,6 +41,19 @@ Nevertheless, we can safely that we've made significant progress towards fulfill
 
 ###Data
 
+Our data was obtained from the College Scorecard, a database managed by the U.S. Department of Education, and contains 7,312 observations. Each observation is a different 4-year academic institution, and each is located within the United States. 
+
+Data was collected by schools themselves via surveys and enrollment information, and then submitted to the U.S. Department of Education.
+
+The two variables we looked at in our analysis are the following:
+
+`MD_EARN_WNE_P10`-Median income ($) 10 years after entry of students working and not enrolled in school; quantitative. Used as our measure of economic benefit derived from an institution.
+
+`PCT_WHITE`- Percent of the population from students' zip codes that is White, via Census data; quantitative. Used as a predictor for economic benefit derived from an institution.
+
+We also created a new indicator variable, 'PredominantlyWhite', to distinguish schools that contained a study body with a percentage of white students greater than 67.09% as predominantly white from those with a percentage of white students less than or equal to 67.09%, which we declared non-predominantly white.  67.09% is the first quartile for the `PCT_WHITE`, and this cut-off was chosen somewhat arbitrarily, but with respect to the variable's distribution.
+
+
 ###Analysis
 
 ###Results
