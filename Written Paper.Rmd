@@ -13,6 +13,32 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ###Introduction
 
+How much money will I make after going to college? This is an important question  that undoubtedly crosses the minds of the millions of U.S. college students at some point during their education, and it also exerts an especially powerful influence on those who are debating where they want to attend school.
+
+For many, choosing a college is one of the biggest financial decisions in life. College is getting more and more expensive every year, and people want to know which school is best for investing in an education. The return on such an investment is often measured by the economic benefits one receives years after graduation.
+
+As students at Amherst College, an expensive private institution, it would be interesting to know the degree to which our personal investments will pay off. Of course there are benefits to a quality liberal arts education that are unrelated to money, but a primary objective of college is to qualify an individual to earn a comfortable living in his or her profession of choice. 
+
+In our country, young adults entering college have a multitude of options when considering where they will pursue their degree, so if it is economic benefit down the road that they seek, what factors or characteristics of an U.S. institution should they consider when choosing a school?
+
+There are a number of variables we could looked at when trying to figure out what makes a college a good investment, but coming from a school as diverse as Amherst Colleg, we decided to focus on racial demographics as our possible explanatory variable for economic success.
+
+It is fairly well-known that white people have had a traditionally stronger representation in the American college system, and white people, on average, have also had higher incomes later in life. However, it seems this trend has recently been changing. In fact, the percentage of white students enrolled in degree-granting postsecondary education institutions during the period between 1976 and 2015 has fallen from 84% to 54% (National Center for Education Statistics). Thus, with the influx of minority students into higher education, is there a difference in the economic benefits reaped by white students versus students of color?
+
+Specifically, our project explores differences in students' later-in-life incomes between predominantly white and non-predominantly white institutions. We measure the economic benefit derived from an institution (4-year schools only) as students' median earnings 10 years post-enrollment.
+
+We begin our analysis by looking at basic univariate statistics and then explore variables visually using histograms and density plots— all the while using what we learned throughout the semester about bin width selection methods, kernels, and bandwidth selection methods.
+
+Then, we perform parametric and nonparametric procedures to see if there is a difference in median incomes between students coming from predominantly white versus non-predominantly white institutions. We do a t-test for differences between groups for the parametric procedure and a rank-sum test for the nonparamtric procedure. We find concurring results from the nonparametric and parametric tests.
+
+Moreover, we explore the bivariate relationship between the percentage of white students at a given institution and median incomes 10 years post-enrollment, and we end up building two linear models: one that is constructed parametrically with simple linear regression (SLR) and one that is constructed nonparametrically using a rank-based solution.  Our models turn out having quite similar slopes and model utilities.
+
+Without going into too much detail on the statistical finds from these procedures, we will go ahead and say that we found evidence to conclude that students from predominantly white institutions have higher median incomes 10 years post-enrollment compared to students who went to non-prodominantly white institutions. 
+
+However, it is our ethical obligation to consider the limitations to our project and our resulting conclusions. Our scope is constrained by the institutions we looked at in the U.S. and the observations that we were forced to remove due to missing information. With so many factors relating to financial success, there is the possibility of unaddressed confounding variables having an unforeseen effect on our conclusions as well.
+
+Nevertheless, we can safely that we've made significant progress towards fulfilling our initial project goal, and we hope that you continue reading this paper to gain a more in-depth perspective on our findings and how they pertain to the broader question of how racial demographics of an institution relate to post-graduation economic success.
+
 ###Data
 
 ###Analysis
