@@ -109,11 +109,15 @@ lines(norm5$x,norm5$y,col=5) #light blue
 
 We see that the green and light blue lines are the least smooth—these were produced using the ucv and SJ bandwidth selection methods, respectively. These are both data-driven cross-validation (cv) methods. 
 
-The black, red, and darker blue lines are all fairly similar in terms of smoothness, and these were produced with the nrd0, nrd, and ucv bandwidth selection methods. The nrd0 and nrd methods are both normal-based and work ideally with data sets that are normally distributed.` The ucv method is a cross-validation method as its name implies. Thus, considering our data is not normally distributed, we prefer the ucv method in this setting.
+The black, red, and darker blue lines are all fairly similar in terms of smoothness, and these were produced with the nrd0, nrd, and ucv bandwidth selection methods. The nrd0 and nrd methods are both normal-based and work ideally with data sets that are normally distributed.` The ucv method is a cross-validation method as its name implies. Thus, considering our data is not normally distributed, we prefer the ucv method in this setting. Having said that, the ucv method produces a density plot that is not very smooth. As a result, we feel any of the other lines suffice to accurately depict our data.
 
-```{r}
+####Two Sample T-Test
 
-```
+With an accurate picture of the distribution of `PCT_WHITE`, we can now begin to conduct tests to determine if there is a significant difference in future income based on the "whiteness" of a school. 
+
+We elected to conduct a Two Sample T-Test to test whether or not there is a difference in median income 10 years post entry between schools that are predominantly white versus schools with a lower percentage of students that are white. Before actually conducting the test, we needed to split the data into two groups. As referenced above, we created a `PredominantlyWhite` variable to distinguish between schools where at least 67.09% of their student body is white and those below that threshold.
+
+
 
 
 
