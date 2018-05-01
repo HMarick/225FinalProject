@@ -56,7 +56,71 @@ We also created a new indicator variable, 'PredominantlyWhite', to distinguish s
 
 ###Analysis
 
+Before conducting any tests, either parametric or non parametric, it is important to examine the distribution of our variables of interest. 
+
+```{r, include=FALSE, warning=FALSE}
+data<-read.csv("Scorecard.csv")
+data2<-data[,c(-6, -18, -19, -(27:34), -(42:89))] 
+data2<-data2[,c(-2,-3,-5)] %>%
+  as.data.frame() # Must start with a data-read in command from Prof. Wagaman
+data2[,3:27]<-sapply(data2[,3:27], as.character)
+data2[,3:27]<-sapply(data2[,3:27], as.numeric)
+data3 <-data2 %>%
+  group_by(INSTNM) %>%
+  mutate(rank=min(UNITID), n=n()) %>%
+  filter(n<2) %>%
+  as.data.frame()
+data4<-data3[,c(-1, -28, -29)]
+```
+
+```{r, warming=FALSE, message=FALSE}
+ggplot(data4, aes(PCT_WHITE))+geom_histogram() + ggtitle("Distribution of Percentage White") + xlab("Percentage White") + ylab("Count")
+```
+
+
+Conducting Univariate Analysis on the distribution of the percentage of students that are white, it is clear that this distribution is quite skewed left. The mean percentage is 75.509 while the median is 78.685. The data ranges from from 5.34 to 98.98 with a standard deviation of 15.879.
+
+Intuitively, this distribution makes sense.  White people have a traditionally stronger representation in the American college system, and this distribution supports that claim as there is more density around colleges with a proportionately high white student body.
+
+Naturally, we explored different binwidths with our histograms in order to produce the most accurate picture of the distribution. While we explored various different binwidths, we found that Scott's and Sturge's methods of binwidth selection produced accurate histograms. In fact, R produced the same exact plot using both methods. 
+
+```{r}
+histogram(~PCT_WHITE,data=data4,breaks="Sturges",main="Sturges")
+histogram(~PCT_WHITE,data=data4,breaks="Scott",main="Scott") 
+```
+
+In the interest of being as thorough as possible, we elected to also look at kernal density plots. We varied the kernal function and the bandwidth selection in order to find the ideal combination. 
+
+After comparing different kernal functions with the default binwidth, we found the normal kernal to be the most smooth, producing what we felt was the best representation of the data. Below, we have compared different bandwidth selection methods.
+
+```{r}
+norm<-density(data4$PCT_WHITE, kernel="g",bw="nrd0",na.rm=TRUE) #saved normal kernel, default h
+norm2<-density(data4$PCT_WHITE, kernel="g",bw="nrd",na.rm=TRUE)
+norm3<-density(data4$PCT_WHITE, kernel="g",bw="ucv",na.rm=TRUE)
+norm4<-density(data4$PCT_WHITE, kernel="g",bw="bcv",na.rm=TRUE)
+norm5<-density(data4$PCT_WHITE,kernel="g",bw="SJ",na.rm=TRUE)
+
+plot(norm$x,norm$y,ylim=c(0,0.05),type="l",xlab="PCT_WHITE", ylab="density", main="Comparing Bandwidth Selection Methods") #adjust y for scaling
+lines(norm2$x,norm2$y,col=2) #red
+lines(norm3$x,norm3$y,col=3) #green
+lines(norm4$x,norm4$y,col=4) #blue
+lines(norm5$x,norm5$y,col=5) #light blue
+```
+
+We see that the green and light blue lines are the least smooth—these were produced using the ucv and SJ bandwidth selection methods, respectively. These are both data-driven cross-validation (cv) methods. 
+
+The black, red, and darker blue lines are all fairly similar in terms of smoothness, and these were produced with the nrd0, nrd, and ucv bandwidth selection methods. The nrd0 and nrd methods are both normal-based and work ideally with data sets that are normally distributed.` The ucv method is a cross-validation method as its name implies. Thus, considering our data is not normally distributed, we prefer the ucv method in this setting.
+
+```{r}
+
+```
+
+
+
 ###Results
+
+
+
 
 ###Conclusion
 
