@@ -169,7 +169,10 @@ There appears to be a weak positive linear correlation between percentage of stu
 
 Let's look at the difference in distributions between predominantly white and non-predominantly white institutions in terms of median income 10 years post-enrollment:
 
-*Joe, Insert overlayed densityplot here*
+```{r}
+densityplot(~MD_EARN_WNE_P10/1000, groups = PredominantlyWhite, auto.key = TRUE,xlab = "Median Income Divided by 1000", main = "Distribution of Median Income 10 Years After Graduation", na.rm = TRUE, data = data)
+```
+
 
 
 We think these distributions are similar enough in shape and spread to assume a shift-based model.
@@ -177,24 +180,26 @@ We think these distributions are similar enough in shape and spread to assume a 
 Let's use a t-test to see if there is a difference in distributions between predominantly white and non-predominantly white institutions in terms of median income 10 years post-enrollment:
 
 ```{r}
-t.test(MD_EARN_WNE_P10~PredominantlyWhite, data=data)
+t.test(filter(data,PredominantlyWhite == 1)$MD_EARN_WNE_P10,filter(data,PredominantlyWhite == 0)$MD_EARN_WNE_P10, data=data)
 ```
 
-Our t-statistic is -10.377 and the p-value is close to 0 so we have sufficient evidence to reject the null hypothesis that the median income between the two groups were not equal, and conclude that students coming from institutions we distinguished as predominantly white had a higher median income ten years after enrollment.
+Our t-statistic is -10.377 and the p-value is close to 0 so we have sufficient evidence to reject the null hypothesis that the median income between the two groups were not equal, and conclude that students coming from institutions we distinguished as predominantly white had a higher median income ten years after enrollment. Additionally, the 95% confidence interval demonstrates that on average, students from insitutions labeled as "Predominantly White" reported median incomes between $4,008.18 and $5,875.99 higher than institutions labeled as "Not Predominantly White".
 
 Since we appear to be working with distributions that are non-normal, let's compare our t-test results with a nonparametric rank-sum test:
 
 ```{r}
-with(data=data, wilcox.test(PredominantlyWhite,MD_EARN_WNE_P10))
+with(data=data, wilcox.test(filter(data,PredominantlyWhite == 1)$MD_EARN_WNE_P10,filter(data,PredominantlyWhite == 0)$MD_EARN_WNE_P10, conf.int = TRUE))
 ```
 
-W=0 and we obtain a p-value close to 0, so the nonparametric procedure agrees with the results from the t-test: we can reject the null hypothesis and conclude that students coming from institutions we distinguished as predominantly white had a higher median income ten years after enrollment.
+W=0 and we obtain a p-value close to 0, so the nonparametric procedure agrees with the results from the t-test: we can reject the null hypothesis and conclude that students coming from institutions we distinguished as predominantly white had a higher median income ten years after enrollment. The confidence Interval using this test was slightly less bullish, due to lack of influence of outliers in the nonparametric procedure.  The interval demonstrated that the median increase in median income for students from predominantly white institutions was between $3,900 and $5,300 higher than students from non-predominantly white universties.
 
 Now let's fit a simple linear model using percent white to predict median earnings.
 
 ```{r}
 summary(rfit(MD_EARN_WNE_P10~PCT_WHITE, data=data),overall.test="drop")
 ```
+
+##Don't know the point of this is when we do it later on
 
 The p-value for model utility is very close to 0, indicating that there is a significant linear relationship between these two variables. This relationship is one we will continue to investigate as our project progresses.
 
@@ -230,9 +235,28 @@ lines((nonP$x)[,2], nonP$fitted, col=2)
 lines(data$PCT_WHITE, lin$fitted, col=4)
 ```
 
-The parametric estimated slope is 113.69 which is very close to the nonparametric slope of 116.01.
+The parametric estimated slope is 113.69 which is very close to the nonparametric slope of 116.01. For every increase in the percentage of the student body that is white, in the parametric model, median income increases by almost $114 whereas the interpretation for the nonparametric model is that median income increases by $116.
 
 We see that these slopes produce lines that are very similar and are right on top of each other (intercepts are close to each other), and they both indicate a slight positive relationship between Percentage white and Median Earnings 10 Years Post-Entry.
 
+Now, let's consider a potential parallel slopes model using the "Predominantly White" variabel as an indicator. Since the Rank-Sum test and t-tests were significant, such a model is likely useful in interpretation of the effects of demographics on Median Income post graduation. First, the parametric regression.
 
+```{r}
+linP<-lm(MD_EARN_WNE_P10~PredominantlyWhite, data=data)
+summary(linP)
+plot(linP, which=1)
+plot(linP, which=2)
+```
+
+Once again, the conditions of normality and equal variance of the residuals are clearly violated for parametric regression are violated, but our F-Stat (83.6 on 1 and 4650 DF) is highly significant. Intiuitively, since the slope coefficient for the indicator is significant, the model would predict the average median income for the non-predominantly white institutions, and the average median income for predominantly white institutions, which the  t-test demonstrated to be approximately $5000. Since there are no other predictors in the model, its predictive power is low. 
+
+Next, the nonparametric parallel slopes model:
+
+```{r}
+summary(rfit(MD_EARN_WNE_P10~PredominantlyWhite, data=data),overall.test="drop")
+```
+
+The interpretation of this model is the same, and the model is also significant in terms of the Reduction in Dispersion Test, but since outliers have no effect in pulling the intercept and coefficients either up or down, the estimates are slightly lower for the effects of the PredominantlyWhite variable, something confirmed in the comparision between the t-test and rank-sum test.
+
+##A couple of questions: include computations for spearman's rho and correlation coefficient. Should we also do a model with parallel slopes?
 
