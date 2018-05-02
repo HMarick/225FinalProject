@@ -147,7 +147,7 @@ abline(mod)
 There seems to be a weak to moderate positive relationship between PCT-WHITE and the proportion of students earning over 25K within 10 years of graduating. 
 
 
-Density of percentage white variable
+#####Density of percentage white variable
 
 Histograms:
 ```{r}
@@ -165,7 +165,7 @@ FDm<-maxmin/FDh;FDm
 Scottm<-maxmin/Scotth;Scottm
 ```
 
-Sturges and Scott produce similar histograms and appear to be the best choice in portraying the shape of the distribution. The default contains less bins and isn't a bad choice either. However, Friedman's produces a histogram with many bins and results in a histogram that is too blocky since it doesn't have enough observations per bin.
+Friedman's produces a histogram with many bins and results in a histogram that is too blocky since it doesn't have enough observations per bin. The default histogram contains fewer bins and isn't a bad choice. However, Sturges and Scott produce similar histograms and are our preferred choices since they portray the shape of the distribution best. 
 
 Kernel comparisons:
 ```{r}
@@ -175,9 +175,9 @@ densityplot(~PCT_WHITE,data=data4,kernel="g",main="Default Normal Kernel Estimat
 densityplot(~PCT_WHITE,data=data4,kernel="t",main="Default Triangular Kernel Estimate for PCT_WHITE")
 ```
 
-The density plot created using the box, or uniform kernel, is the least smooth out of the bunch. Plots constructed with the epanechnikov, triangular, and normal kernels are all fairly smooth, but the plot using the normal kernel stands out as the most smooth so that is the one we will prefer.
+The density plot created using the box, or uniform kernel, is the least smooth out of the options. Plots constructed with the epanechnikov, triangular, and normal kernels are all fairly smooth, but the plot using the normal kernel stands out as the most smooth. Thus, the normal kernel is the one we will prefer.
 
-Fixed bandwidth comparisons:
+Bandwidth comparisons:
 ```{r}
 norm<-density(data4$PCT_WHITE, kernel="g",bw="nrd0",na.rm=TRUE) #saved normal kernel, default h
 norm2<-density(data4$PCT_WHITE, kernel="g",bw="nrd",na.rm=TRUE)
@@ -185,7 +185,7 @@ norm3<-density(data4$PCT_WHITE, kernel="g",bw="ucv",na.rm=TRUE)
 norm4<-density(data4$PCT_WHITE, kernel="g",bw="bcv",na.rm=TRUE)
 norm5<-density(data4$PCT_WHITE,kernel="g",bw="SJ",na.rm=TRUE)
 
-plot(norm$x,norm$y,ylim=c(0,0.15),type="l") #adjust y for scaling
+plot(norm$x,norm$y,ylim=c(0,0.15),type="l",xlab="PCT_WHITE", ylab="density", main="Comparing Bandwidth Selection Methods") #adjust y for scaling
 lines(norm2$x,norm2$y,col=2) #red
 lines(norm3$x,norm3$y,col=3) #green
 lines(norm4$x,norm4$y,col=4) #blue
