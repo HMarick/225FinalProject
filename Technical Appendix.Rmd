@@ -94,13 +94,6 @@ histogram(~PCT_WHITE,data=data,breaks="Sturges",main="Sturges")
 histogram(~PCT_WHITE,data=data,breaks="Scott",main="Scott") 
 histogram(~PCT_WHITE,data=data,breaks="FD",main="FD") 
 ggplot(data, aes(PCT_WHITE))+geom_histogram() #better graphics
-#favstats(~PCT_WHITE, data=data4)
-#FDh<-2*(87.83-67.09)*(5176^(-1/3)); FDh
-#Scotth<-3.5*15.86593*(5176^(-1/3));Scotth
-#Sturgesm<-log2(5176) +1; Sturgesm
-#maxmin<-98.92+5.34
-#FDm<-maxmin/FDh;FDm
-#Scottm<-maxmin/Scotth;Scottm
 
 ```
 
@@ -172,7 +165,6 @@ Let's look at the difference in distributions between predominantly white and no
 ```{r}
 densityplot(~MD_EARN_WNE_P10/1000, groups = PredominantlyWhite, auto.key = TRUE,xlab = "Median Income Divided by 1000", main = "Distribution of Median Income 10 Years After Graduation", na.rm = TRUE, data = data)
 ```
-
 
 
 We think these distributions are similar enough in shape and spread to assume a shift-based model.
