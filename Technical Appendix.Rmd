@@ -75,7 +75,7 @@ ggplot(data,aes(as.numeric(MD_EARN_WNE_P10)))+geom_histogram()+
   xlab("Median Earnings (hundreds of dollars)")
 ```
 
-The distribution of median earnings of students working and not enrolled 10 years after entry has a median of 31100 dollars and a mean of 33500.42 dollars, and so we see the distribution is skewed right. The range of the distribution is 9,100 to 250,000 dollars, and the standard deviation is 15,444.58 dollars which indicates a relatively large spread.
+The distribution of median earnings of students working and not enrolled 10 years after entry has a median of 31,100 dollars and a mean of 33,500.42 dollars, and so we see the distribution is skewed right. The range of the distribution is 9,100 to 250,000 dollars, and the standard deviation is 15,444.58 dollars which indicates a relatively large spread.
 
 This variable will serve as a response variable for later in our analysis.
 
@@ -188,7 +188,7 @@ t.test(filter(data,PredominantlyWhite == 1)$MD_EARN_WNE_P10,filter(data,
                                                                    PredominantlyWhite == 0)$MD_EARN_WNE_P10, data=data)
 ```
 
-Our t-statistic is -10.377 and the p-value is close to 0 so we have sufficient evidence to reject the null hypothesis that the median income between the two groups are not equal, and conclude that students coming from institutions we distinguished as predominantly white have a higher median income ten years after enrollment. Additionally, the 95% confidence interval demonstrates that on average, students from insitutions labeled as "Predominantly White" report median incomes between $\$$4,008.18 and $\$$5,875.99 higher than institutions labeled as "Not Predominantly White".
+Our t-statistic is -10.377 and the p-value is close to 0 so we have sufficient evidence to reject the null hypothesis that the median income between the two groups are not equal, and conclude that students coming from institutions we distinguished as predominantly white have a higher median income ten years after enrollment. Additionally, the 95% confidence interval demonstrates that on average, students from insitutions labeled as "Predominantly White" report median incomes between 4,008.18 dollars and 5,875.99 dollars higher than institutions labeled as "Not Predominantly White".
 
 Since we appear to be working with distributions that are non-normal, let's compare our t-test results with a nonparametric rank-sum test:
 
@@ -196,7 +196,7 @@ Since we appear to be working with distributions that are non-normal, let's comp
 with(data=data, wilcox.test(filter(data,PredominantlyWhite ==1)$MD_EARN_WNE_P10,filter(data,                                            PredominantlyWhite == 0)$MD_EARN_WNE_P10, conf.int = TRUE))
 ```
 
-W=2542000 and we obtain a p-value close to 0, so the nonparametric procedure agrees with the results from the t-test: we can reject the null hypothesis and conclude that students coming from institutions we distinguished as predominantly white had a higher median income ten years after enrollment. The confidence interval using this test was slightly less bullish, due to lack of influence of outliers in the nonparametric procedure.  The interval demonstrated that the median increase in median income for students from predominantly white institutions was between $\$$3,900 and $\$$5,300 higher than students from non-predominantly white universties.
+W=2542000 and we obtain a p-value close to 0, so the nonparametric procedure agrees with the results from the t-test: we can reject the null hypothesis and conclude that students coming from institutions we distinguished as predominantly white had a higher median income ten years after enrollment. The confidence interval using this test was slightly less bullish, due to lack of influence of outliers in the nonparametric procedure.  The interval demonstrated that the median increase in median income for students from predominantly white institutions was between 3,900 dollars and 5,300 dollars higher than students from non-predominantly white universties.
 
 
 Let's fit a simple linear model using percent white to predict median earnings:
@@ -233,7 +233,7 @@ lines((nonP$x)[,2], nonP$fitted, col=2)
 lines(data$PCT_WHITE, lin$fitted, col=4)
 ```
 
-The parametric estimated slope is 113.69 which is very close to the nonparametric slope of 116.01. For every increase in the percentage of the student body that is white, in the parametric model, median income increases by almost $\$$114 whereas the interpretation for the nonparametric model is that median income increases by $\$$116.
+The parametric estimated slope is 113.69 which is very close to the nonparametric slope of 116.01. For every increase in the percentage of the student body that is white, in the parametric model, median income increases by almost 114 dollars whereas the interpretation for the nonparametric model is that median income increases by 116 dollars.
 
 We see that these slopes produce lines that are very similar and are right on top of each other (intercepts are close to each other), and they both indicate a slight positive relationship between percentage white and median earnings 10 years post entry.
 
@@ -246,7 +246,7 @@ plot(linP, which=1)
 plot(linP, which=2)
 ```
 
-Once again, the conditions of normality and equal variance of the residuals are clearly violated for parametric regression, even though our F-Stat (83.6 on 1 and 4650 DF) is highly significant. Intiuitively, since the slope coefficient for the indicator is significant, the model would predict the average median income for the non-predominantly white institutions, and the average median income for predominantly white institutions, which the  t-test demonstrated to be approximately $\$$5000 higher. Since there are no other predictors in the model, its predictive power is low. 
+Once again, the conditions of normality and equal variance of the residuals are clearly violated for parametric regression, even though our F-Stat (83.6 on 1 and 4650 DF) is highly significant. Intiuitively, since the slope coefficient for the indicator is significant, the model would predict the average median income for the non-predominantly white institutions, and the average median income for predominantly white institutions, which the  t-test demonstrated to be approximately 5,000 dollars higher. Since there are no other predictors in the model, its predictive power is low. 
 
 Next, the nonparametric parallel slopes model:
 
