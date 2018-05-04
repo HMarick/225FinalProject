@@ -11,6 +11,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ###Abstract
 
+Higher education, and specifically, a college education, is known to be an impetus for economic mobility. As the years have progressed, the system of higher education in the United States has become more racially diverse thanks to progressive movements aimed at improving the representation of minorities in America's universities. However, is the economic benefit of a post-secondary degree the same for a white versus a non-white student? Measuring the economic benefit of a college degree as the median income ten years post entry for students coming from a specific institution, this study aims to investigate whether the demographic make up of a university affects the long term benefits of enrollment. 
+
 ###Introduction
 
 How much money will I make after going to college? This is an important question  that undoubtedly crosses the minds of the millions of U.S. college students at some point during their education, and it also exerts an especially powerful influence on those who are debating where they want to attend school.
@@ -23,17 +25,17 @@ In our country, young adults entering college have a multitude of options when c
 
 There are a number of variables we could looked at when trying to figure out what makes a college a good investment, but coming from a school as diverse as Amherst College, we decided to focus on racial demographics as our possible explanatory variable for economic success.
 
-It is fairly well-known that white people have had a traditionally stronger representation in the American college system, and white people, on average, have also had higher incomes later in life. However, it seems this trend has recently been changing. In fact, the percentage of white students enrolled in degree-granting postsecondary education institutions during the period between 1976 and 2015 has fallen from 84% to 54% (National Center for Education Statistics). Thus, with the influx of minority students into higher education, is there a difference in the economic benefits reaped by white students versus students of color?
+It is fairly well-known that white people have had a traditionally stronger representation in the American college system, and white people, on average, have also had higher incomes later in life. However, it seems this trend has recently been changing. In fact, the percentage of white students enrolled in degree-granting post secondary education institutions during the period between 1976 and 2015 has fallen from 84% to 54% (National Center for Education Statistics). Thus, with the influx of minority students into higher education, is there a difference in the economic benefits reaped by white students versus students of color?
 
 Specifically, our project explores differences in students' later-in-life incomes between predominantly white and non-predominantly white institutions. We measure the economic benefit derived from an institution (4-year schools only) as students' median earnings 10 years post-enrollment.
 
-We begin our analysis by looking at basic univariate statistics and then explore variables visually using histograms and density plots— all the while using what we learned throughout the semester about bin width selection methods, kernels, and bandwidth selection methods.
+We begin our analysis by looking at basic uni-variate statistics and then explore variables visually using histograms and density plots— all the while using what we learned throughout the semester about bin width selection methods, kernels, and bandwidth selection methods.
 
-Then, we perform parametric and nonparametric procedures to see if there is a difference in median incomes between students coming from predominantly white versus non-predominantly white institutions. We do a t-test for differences between groups for the parametric procedure and a rank-sum test for the nonparamtric procedure. We find concurring results from the nonparametric and parametric tests.
+Then, we perform parametric and non-parametric procedures to see if there is a difference in median incomes between students coming from predominantly white versus non-predominantly white institutions. We do a t-test for differences between groups for the parametric procedure and a rank-sum test for the non-parametric procedure. We find concurring results from the non-parametric and parametric tests.
 
-Moreover, we explore the bivariate relationship between the percentage of white students at a given institution and median incomes 10 years post-enrollment, and we end up building two linear models: one that is constructed parametrically with simple linear regression (SLR) and one that is constructed nonparametrically using a rank-based solution.  Our models turn out having quite similar slopes and model utilities.
+Moreover, we explore the bi-variate relationship between the percentage of white students at a given institution and median incomes 10 years post-enrollment, and we end up building two linear models: one that is constructed parametrically with simple linear regression (SLR) and one that is constructed nonparametrically using a rank-based solution.  Our models turn out having quite similar slopes and model utilities.
 
-Without going into too much detail on the statistical finds from these procedures, we will go ahead and say that we found evidence to conclude that students from predominantly white institutions have higher median incomes 10 years post-enrollment compared to students who went to non-prodominantly white institutions. 
+Without going into too much detail on the statistical finds from these procedures, we will go ahead and say that we found evidence to conclude that students from predominantly white institutions have higher median incomes 10 years post-enrollment compared to students who went to non-predominantly white institutions. 
 
 However, it is our ethical obligation to consider the limitations to our project and our resulting conclusions. Our scope is constrained by the institutions we looked at in the U.S. and the observations that we were forced to remove due to missing information. With so many factors relating to financial success, there is the possibility of unaddressed confounding variables having an unforeseen effect on our conclusions as well.
 
@@ -51,7 +53,7 @@ The two variables we looked at in our analysis are the following:
 
 `PCT_WHITE`- Percent of the population from students' zip codes that is White, via Census data; quantitative. Used as a predictor for economic benefit derived from an institution.
 
-We also created a new indicator variable, 'PredominantlyWhite', to distinguish schools that contained a study body with a percentage of white students greater than 67.09% as predominantly white from those with a percentage of white students less than or equal to 67.09%, which we declared non-predominantly white.  67.09% is the first quartile for the `PCT_WHITE`, and this cut-off was chosen somewhat arbitrarily, but with respect to the variable's distribution.
+We also created a new indicator variable, 'Predominantly White', to distinguish schools that contained a study body with a percentage of white students greater than 67.09% as predominantly white from those with a percentage of white students less than or equal to 67.09%, which we declared non-predominantly white.  67.09% is the first quartile for the `PCT_WHITE`, and this cut-off was chosen somewhat arbitrarily, but with respect to the variable's distribution.
 
 
 ###Analysis
@@ -79,20 +81,20 @@ ggplot(data5, aes(PCT_WHITE))+geom_histogram() + ggtitle("Distribution of Percen
 ```
 
 
-Conducting Univariate Analysis on the distribution of the percentage of students that are white, it is clear that this distribution is quite skewed left. The mean percentage is 75.509 while the median is 78.685. The data ranges from from 5.34 to 98.98 with a standard deviation of 15.879.
+Conducting Uni-variate Analysis on the distribution of the percentage of students that are white, it is clear that this distribution is quite skewed left. The mean percentage is 75.509 while the median is 78.685. The data ranges from from 5.34 to 98.98 with a standard deviation of 15.879.
 
 Intuitively, this distribution makes sense.  White people have a traditionally stronger representation in the American college system, and this distribution supports that claim as there is more density around colleges with a proportionately high white student body.
 
-Naturally, we explored different binwidths with our histograms in order to produce the most accurate picture of the distribution. While we explored various different binwidths, we found that Scott's and Sturge's methods of binwidth selection produced accurate histograms. In fact, R produced the same exact plot using both methods. 
+Naturally, we explored different bin-widths with our histograms in order to produce the most accurate picture of the distribution. While we explored various different bin-widths, we found that Scott's and Sturge's methods of bin-width selection produced accurate histograms. In fact, R produced the same exact plot using both methods. 
 
 ```{r, echo=FALSE}
 histogram(~PCT_WHITE,data=data4,breaks="Sturges",main="Sturges")
 histogram(~PCT_WHITE,data=data4,breaks="Scott",main="Scott") 
 ```
 
-In the interest of being as thorough as possible, we elected to also look at kernal density plots. We varied the kernal function and the bandwidth selection in order to find the ideal combination. 
+In the interest of being as thorough as possible, we elected to also look at kernel density plots. We varied the kernel function and the bandwidth selection in order to find the ideal combination. 
 
-After comparing different kernal functions with the default binwidth, we found the normal kernal to be the most smooth, producing what we felt was the best representation of the data. Below, we have compared different bandwidth selection methods.
+After comparing different kernel functions with the default bin-width, we found the normal kernel to be the most smooth, producing what we felt was the best representation of the data. Below, we have compared different bandwidth selection methods.
 
 ```{r, echo=FALSE}
 norm<-density(data4$PCT_WHITE, kernel="g",bw="nrd0",na.rm=TRUE) #saved normal kernel, default h
@@ -125,7 +127,7 @@ t.test(MD_EARN_WNE_P10~PredominantlyWhite, data=data4)
 ```
 
 
-We have a p-value for our t-statistic that is virtually 0, which is statistially significant at any reasonable alpha level. Additionally, we have a 95% confidence interval for the different in means between the two groups to be 
+We have a p-value for our t-statistic that is virtually 0, which is statistically significant at any reasonable alpha level. Additionally, we have a 95% confidence interval for the different in means between the two groups to be 
 (-5875.99, -4008.18), which is completely below 0. We have sufficient evidence to reject the null in favor of the alternative that the predominantly white schools have a higher mean value for `MD_EARN_WNE_P10`. In other words, the mean of the median earning 10 years after entry is higher for predominantly white schools.
 
 Of course, this parametric t-test depends on the normality of the data, which is in question. 
@@ -134,7 +136,7 @@ Of course, this parametric t-test depends on the normality of the data, which is
 with(data4, densityplot(~MD_EARN_WNE_P10, groups=PredominantlyWhite, main="Normality Condition", auto.key=TRUE))
 ```
 
-Notice that for both groups, there is a distinct right skew, which means that the normality condition for the parametric t-test do not hold. Unfortunately, the conclusions above are now in question. We conducted a Rank-Sum Procedure in order to verify our conclusions using a nonparametric procedure.
+Notice that for both groups, there is a distinct right skew, which means that the normality condition for the parametric t-test do not hold. Unfortunately, the conclusions above are now in question. We conducted a Rank-Sum Procedure in order to verify our conclusions using a non-parametric procedure.
 
 Looking at the density plot above, it seems reasonable to utilize a shift model, since the distributions appear to have the same shape but for potentially different centers. 
 
@@ -142,7 +144,7 @@ Looking at the density plot above, it seems reasonable to utilize a shift model,
 with(data=data, wilcox.test(PredominantlyWhite,MD_EARN_WNE_P10, conf.int=TRUE))
 ```
 
-With a test statistic of 0 and corresponding p-value of virtually 0, we have sufficient evidence to reject our null hypothesis in favor of the alternatie that the difference in distribution centers is not zero. With a confidence interval that lies completely below 0, we have sufficient evidence to condlude that the predominantly white group has a median median income 10 years post entry that is higher than that of the non predominantly white group. This conclusion is consistent witht the results of the parametric test
+With a test statistic of 0 and corresponding p-value of virtually 0, we have sufficient evidence to reject our null hypothesis in favor of the alternative that the difference in distribution centers is not zero. With a confidence interval that lies completely below 0, we have sufficient evidence to conclude that the predominantly white group has a median median income 10 years post entry that is higher than that of the non predominantly white group. This conclusion is consistent with the results of the parametric test
 
 After confidently finding a difference between the two group means, we looked for a linear relationship between `PCT_WHITE` and `MD_EARN_WNE_P10`. 
 
@@ -168,14 +170,14 @@ plot(lin, which=1)
 plot(lin, which=2)
 ```
 
-Examining both the residuals vs. fitted plot and the qqplot, both the constant variance and normality of the erorrs conditions are not met. There is a clear increase in the bandwidth of the errors as the fitted values increase and the upper tail of the qqplot moves well off the normal line. In this instance, a nonparametric model appears to be a better choice.
+Examining both the residuals vs. fitted plot and the qqplot, both the constant variance and normality of the errors conditions are not met. There is a clear increase in the bandwidth of the errors as the fitted values increase and the upper tail of the plot moves well off the normal line. In this instance, a non-parametric model appears to be a better choice.
 
 ```{r, echo=FALSE}
 nonP<-rfit(MD_EARN_WNE_P10~PCT_WHITE, data=d5)
 summary(nonP, overall.test='drop')
 ```
 
-In the interest of brevity, we will spare the formal interpretation of the nonparametric results. In short, the conclusions are the same, as the p-value for the slope coefficient is virtually zero. With a coefficient of 116.01, the slope for this model is very similar to that of the parametric model. Since there are virtually no conditions to account for here, other than the independence and randomization of our data, we feel confident in the results from the non parametric model. 
+In the interest of brevity, we will spare the formal interpretation of the non-parametric results. In short, the conclusions are the same, as the p-value for the slope coefficient is virtually zero. With a coefficient of 116.01, the slope for this model is very similar to that of the parametric model. Since there are virtually no conditions to account for here, other than the independence and randomization of our data, we feel confident in the results from the non parametric model. 
 
 
 
@@ -186,11 +188,12 @@ In summary, we found that there is a clear difference in the median median incom
 Based on our analysis, it is clear that there is an economic benefit later in life to attending a predominantly white college or university. It is important to note that this does not mean that the reason for this relationship is because the college or university is "whiter". Our analysis is merely based on correlations, which say nothing of causal relationships. The primary third variables that we have not accounted for is quality of the school. It is reasonable to expect more highly prestigious schools to produce a higher median income 10 years post entry. Either way, there appears to be a correlative economic benefit to attending a more predominantly white college or university. 
 
 
-
-
-
 ###Conclusion
 
+Our analysis was aimed at investigating whether there are discrepancies in the monetary gain of attending a certain university based on its demographic make up. Specifically, we sought to highlight a potential difference in the earnings of students who attended what we labeled as "Predominantly White" Universities versus students who attended "Non-Predominantly White" Universities. After conducting both parametric and non parametric analyses for the differences in group means or medians (depending on the statistical framework - parametric vs. non-parametric) of ten year post entry median earnings of students, the results were significant. Students from predominantly white universities reported median incomes higher than students coming from non predominantly white institutions, and the tests demonstrated that students from predominantly white institutions reported median incomes between $4,000 and $5,000. In fitting a model in both parametric and non-parametric settings, the goal was to highlight the relationship between the percentage of the student body that is white and median income post entry. In each model, all coefficients were significant.  The interpretation is that for every increase in percentage of the student body that is white, potential income down the road is increased by nearly $120.
 
+With this relationship established, several potential avenues for research are opened up. Namely, the "Non Predominantly White" institutions could be filtered from the data set, and investigated for potentially similar characteristics. For instance, one could look at the breakdown of majors from these universities and conduct similar statistical tests to see whether the percentage of STEM majors, majors that afford students opportunities in particularly lucrative fields post-graduation, is significantly different from students at "Predominantly White" universities. There could also be analysis on the structure of these universities: What is the average or median student faculty ratio. What are the retention rates? What are the four year graduation rates? All of these statistics could then be compared to the "Predominantly White" universities.
+
+Of course, any conclusions drawn from our research should not be made without acknowledgement of the flaws of our data set. For one, nearly a third of the observations of in our whole set were missing, limiting the scope of inference in our study. In addition, it is necessary to note that the observations in our set come at the institution level.  With that said, there is no concept of the income distribution by race within the university, only the mean and median ten years post entry of the entire student body.  This makes the conclusion of our study slightly more difficult to interpret.  We cannot say that enrolling in a university that is proportionately more white is more lucrative down the line for an individual student. For instance, it may be the case that minorities at such a school earn way less, but that the white demographic, since it represents the majority of the student body, outweighs this effect in calculation of the median and mean earnings. Therefore, the scope of our research extends only to the institution level.  Specifically, universities that have a higher proportion of white students report higher median incomes for their students in the intermediate future post graduation.
 
 
